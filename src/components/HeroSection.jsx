@@ -33,6 +33,7 @@ const HeroSection = () => {
     flexDirection: "column",
     textAlign: "center",
     color: "#fff",
+    fontSize: 18,
     px: 2
   }}
 >    

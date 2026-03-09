@@ -129,40 +129,137 @@ function Footer() {
           </Grid>
         </Grid>
 
-        {/* Payment Methods */}
-        <Box sx={{ mb: 5 }}>
-          <Stack 
-            direction="row" 
-            flexWrap="nowrap" 
-            justifyContent="left" 
-            gap={1}
-            sx={{ alignItems: 'center', 
-            justifyItems: 'center',
-            minWidth: "max-content",
+      {/* Payment Methods */}
 
-             }}
-
+        {/* <Box sx={{ mb: 5 }}>
+        <Stack
+        direction="row"
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+        sx={{ width: "100%" }}
     
-          >
-            <Box component="img" src="visa.jpg" alt="Visa" sx={{ width:80,height: 62 }} />
-            <Box component="img" src="mastercard.jpg" alt="Mastercard" sx={{ width:58,height: 62 }} />
-            <Box component="img" src="paypal.png" alt="PayPal" sx={{ height: 62,width:57 }} />
-            <Box component="img" src="mpesa2.png" alt="M-PESA" sx={{ height: 62, width:76 }} />
-            <Box component="img" src="zamtel.png" alt="M-PESA" sx={{ height: 62, width:64 }} />
-            <Box component="img" src="pengvin.png" alt="M-PESA" sx={{  width:79, height: 62,borderRadius:2 }} />
-            <Box component="img" src="telecel.png" alt="M-PESA" sx={{  width:90, height: 62 }} />
-            <Box component="img" src="vodacom.png" alt="M-PESA" sx={{  width:88, height: 62}} />
-            <Box component="img" src="tnm.png" alt="M-PESA" sx={{  width:52, height: 62 }} />
-            <Box component="img" src="mixx.png" alt="M-PESA" sx={{  width:66, height: 62 }} />
-            <Box component="img" src="orange.png" alt="M-PESA" sx={{  width:54, height: 62 }} />
-            <Box component="img" src="movitel.png" alt="M-PESA" sx={{  width:65, height: 62 }} />
-            <Box component="img" src="moovafrica.png" alt="M-PESA" sx={{  width:58, height: 62 }} />
-            <Box component="img" src="halopesa.png" alt="M-PESA" sx={{  width:82, height: 62 }} />
-            <Box component="img" src="celtiis.png" alt="M-PESA" sx={{  width:56, height: 62 }} />
-            <Box component="img" src="atmoney.png" alt="M-PESA" sx={{  width:56, height: 62 }} />
-            <Box component="img" src="airtelmoney.png" alt="M-PESA" sx={{  width:66, height: 62 }} />
-          </Stack>
-        </Box>
+  >
+    {[
+      "visa.png",
+      "mastercard.png",
+      "paypal.png",
+      "mpesa2.png",
+      "zamtel.png",
+      "pengvin.png",
+      "telecel.png",
+      "vodacom.png",
+      "tnm.png",
+      "mixx.png",
+      "orange.png",
+      "movitel.png",
+      "moovafrica.png",
+      "halopesa.png",
+      "celtiis.png",
+      "atmoney.png",
+      "airtelmoney.png"
+    ].map((logo, index) => (
+      <Box
+        key={index}
+        sx={{
+          width: 85,
+          height: 55,
+          background: "#fff",
+          borderRadius: "8px",
+          boxShadow: "0px 2px 6px rgba(0,0,0,0.06)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          
+        }}
+      >
+        <Box
+          component="img"
+          src={logo}
+          alt="logo"
+          sx={{
+            width: "90%",
+            height: "90%",
+            objectFit: "contain"
+            
+          }}
+        />
+      </Box>
+    ))}
+  </Stack>
+</Box> */}
+
+
+{/* Payment Methods - Centered Single Row */}
+{/* Payment Methods - Force Symmetry */}
+<Box 
+  sx={{ 
+    mb: 5, 
+    width: '100%', 
+    display: 'flex', 
+    justifyContent: 'center', // Centers the entire row container
+    alignItems: 'center'
+  }}
+>
+  <Stack
+  direction="row"
+  sx={{ 
+    width: "fit-content",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "nowrap",
+    gap: { xs: 0.5, sm: 1, md: 1.5 }
+  }}
+>
+    {[
+      { src: "visa.png", bg: "#fff" },
+      { src: "mastercard.png", bg: "#fff" },
+      { src: "paypal.png", bg: "#fff" },
+      { src: "mpesa2.png", bg: "#fff" },
+      { src: "zamtel.png", bg: "#fff" },
+      { src: "pengvin.png", bg: "#40D1FB" },
+      { src: "telecel.png", bg: "#fff" },
+      { src: "vodacom.png", bg: "#fff" },
+      { src: "tnm.png", bg: "#fff" },
+      { src: "mixx.png", bg: "#fff" },
+      { src: "orange.png", bg: "#fff" },
+      { src: "movitel.png", bg: "#fff" },
+      { src: "moovafrica.png", bg: "#fff" },
+      { src: "halopesa.png", bg: "#fff" },
+      { src: "celtiis.png", bg: "#063970" },
+      { src: "atmoney.png", bg: "#fff" },
+      { src: "airtelmoney.png", bg: "#fff" }
+    ].map((logo, index) => (
+      <Box
+        key={index}
+        sx={{
+          // Use calc to ensure they shrink perfectly on mobile
+          width: { xs: 'calc(100% / 18)', sm: 48, md: 62 }, 
+          height: { xs: 20, sm: 30, md: 40 },
+          background: logo.bg,
+          borderRadius: "4px",
+          boxShadow: "0px 1px 3px rgba(0,0,0,0.06)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 1, // Allows shrinking to prevent overflow
+          flexGrow: 0,   // Prevents logos from expanding unevenly
+        }}
+      >
+        <Box
+          component="img"
+          src={logo.src}
+          alt="payment provider"
+          sx={{
+            width: "80%",
+            height: "80%",
+            objectFit: "contain"
+          }}
+        />
+      </Box>
+    ))}
+  </Stack>
+</Box>
 
         {/* Social Media */}
         <Stack 

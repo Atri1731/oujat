@@ -14,25 +14,10 @@ import { Facebook, LinkedIn, Instagram } from '@mui/icons-material';
 function Footer() {
   return (
     <Box component="footer" sx={{ width: '100%', bgcolor: 'grey.50', p:3 }}>
-      <Container maxWidth="xl">
-        {/* Logo */}
-        {/* <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-          <Box sx={{ 
-            bgcolor: 'white', 
-            px: 4, 
-            py: 1.5, 
-            borderRadius: 2, 
-            boxShadow: 1 
-          }}>
-            <Typography variant="h5" component="h2" sx={{ fontWeight: 600 , color:"black"}}>
-      
-              <Box component="img" src="oujatlogo.png" alt="logo" sx={{ width:265,height: 96 }} />
-            </Typography>
-          </Box>
-        </Box> */}
+      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 8 } }}>
 
         {/* Logo */}
-<Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+    <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
   <Box
     component="img"
     src="/oujatlogo.png"
@@ -129,68 +114,7 @@ function Footer() {
           </Grid>
         </Grid>
 
-      {/* Payment Methods */}
-
-        {/* <Box sx={{ mb: 5 }}>
-        <Stack
-        direction="row"
-        spacing={2}
-        justifyContent="center"
-        alignItems="center"
-        sx={{ width: "100%" }}
-    
-  >
-    {[
-      "visa.png",
-      "mastercard.png",
-      "paypal.png",
-      "mpesa2.png",
-      "zamtel.png",
-      "pengvin.png",
-      "telecel.png",
-      "vodacom.png",
-      "tnm.png",
-      "mixx.png",
-      "orange.png",
-      "movitel.png",
-      "moovafrica.png",
-      "halopesa.png",
-      "celtiis.png",
-      "atmoney.png",
-      "airtelmoney.png"
-    ].map((logo, index) => (
-      <Box
-        key={index}
-        sx={{
-          width: 85,
-          height: 55,
-          background: "#fff",
-          borderRadius: "8px",
-          boxShadow: "0px 2px 6px rgba(0,0,0,0.06)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          
-        }}
-      >
-        <Box
-          component="img"
-          src={logo}
-          alt="logo"
-          sx={{
-            width: "90%",
-            height: "90%",
-            objectFit: "contain"
-            
-          }}
-        />
-      </Box>
-    ))}
-  </Stack>
-</Box> */}
-
-
-{/* Payment Methods - Centered Single Row */}
+     
 {/* Payment Methods - Force Symmetry */}
 <Box 
   sx={{ 
@@ -294,7 +218,7 @@ function Footer() {
           spacing={2}
         >
           <Typography variant="body2" color="text.secondary">
-            © Copyright 2021-2025, All Rights Reserved
+            © Copyright 2026, All Rights Reserved
           </Typography>
           <Stack 
             direction="row" 

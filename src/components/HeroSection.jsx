@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -17,44 +17,37 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import TrainIcon from "@mui/icons-material/Train";
 import HubIcon from "@mui/icons-material/Hub";
 
-const countries = [
-  "Afghanistan",
-  "Aland Islands",
-  "Albania",
-  "Algeria",
-  "American Samoa",
-  "Andorra",
-  "Angola",
-  "Anguilla",
-  "Argentina",
-  "Australia",
-  "Austria",
-  "Bangladesh",
-  "Belgium",
-  "Brazil",
-  "Canada",
-  "China",
-  "France",
-  "Germany",
-  "India",
-  "Japan",
-  "Kenya",
-  "Netherlands",
-  "Nigeria",
-  "South Africa",
-  "United Kingdom",
-  "United States"
-];
 
 const HeroSection = () => {
+  const [countries, setCountries] = useState([]);
+useEffect(() => {
+  const fetchCountries = async () => {
+    try {
+      const res = await fetch("https://restcountries.com/v3.1/all?fields=name");
+      const data = await res.json();
+
+      const countryList = data
+        .map((c) => c.name.common)
+        .sort((a, b) => a.localeCompare(b));
+
+      setCountries(countryList); 
+    } catch (err) {
+      console.error("Error fetching countries:", err);
+    }
+  };
+// console.log(countries);
+
+  fetchCountries();
+}, []);
+  
   return (
     <Box
       sx={{
         height: "100vh",
         backgroundImage: `
-          linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1)),
+          linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
           url('/hero-bg.jpg')
-        `,
+          `,
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
@@ -66,6 +59,7 @@ const HeroSection = () => {
         px: 2
       }}
     >
+    
       {/* Heading */}
       <Typography
         variant="h3"
@@ -75,48 +69,53 @@ const HeroSection = () => {
           fontSize: { xs: 28, md: 46 },
           fontFamily: "Plus Jakarta Sans, sans-serif"
         }}
-      >
+      > 
         All logistics services, everywhere
       </Typography>
 
       {/* Search Box */}
-      <Paper
-        elevation={4}
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          borderRadius: 4,
-          p: 2,
-          gap: 2,
-          width: { xs: "100%", md: "750px" }
-        }}
-      >
+    <Paper
+  elevation={4}
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    borderRadius: 4,
+    p: { xs: 1.5, md: 2 },
+    gap: 2,
+    width: {
+      xs: "100%",
+      sm: "90%",
+      md: "750px"
+    }
+  }}
+>
+      
         {/* FROM */}
         <Box sx={{ flex: 1, textAlign: "left" }}>
           <Typography fontSize={14} fontWeight={600}>
             From
           </Typography>
 
-          <Autocomplete
-            options={countries}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Enter Origin Country"
-                variant="standard"
-                InputProps={{
-                  ...params.InputProps,
-                  disableUnderline: true
-                }}
-                sx={{
-                  "& input": {
-                    fontWeight: 600,
-                    color: "#000"
-                  }
-                }}
-              />
-            )}
-          />
+      <Autocomplete
+        options={countries || []}
+        renderInput={(params) => (
+      <TextField
+      {...params}
+      placeholder="Enter Origin Country"
+      variant="standard"
+      InputProps={{
+        ...params.InputProps,
+        disableUnderline: true
+      }}
+      sx={{
+        "& input": {
+          fontWeight: 600,
+          color: "#000"
+        }
+      }}
+    />
+  )}
+/>
         </Box>
 
         {/* ARROW */}
@@ -128,26 +127,26 @@ const HeroSection = () => {
             To
           </Typography>
 
-          <Autocomplete
-            options={countries}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Enter Destination Country"
-                variant="standard"
-                InputProps={{
-                  ...params.InputProps,
-                  disableUnderline: true
-                }}
-                sx={{
-                  "& input": {
-                    fontWeight: 600,
-                    color: "#000"
-                  }
-                }}
-              />
-            )}
-          />
+         <Autocomplete
+          options={countries || []}
+          renderInput={(params) => (
+    <TextField
+      {...params}
+      placeholder="Enter Origin Country"
+      variant="standard"
+      InputProps={{
+        ...params.InputProps,
+        disableUnderline: true
+      }}
+      sx={{
+        "& input": {
+          fontWeight: 600,
+          color: "#000"
+        }
+      }}
+    />
+  )}
+/>
         </Box>
 
         {/* SEARCH BUTTON */}
@@ -165,19 +164,24 @@ const HeroSection = () => {
         </IconButton>
       </Paper>
 
-      {/* Transport Icons */}
       <Stack
         direction="row"
-        spacing={2}
-        mt={4}
+        spacing={1}
+        mt={5}
         justifyContent="center"
-        flexWrap="wrap"
-      >
+        flexWrap="nowrap"
+        sx={{
+        maxWidth: "600px"
+  }}
+>
         <Transport icon={<SailingIcon />} label="Ocean / Waterways" />
         <Transport icon={<FlightIcon />} label="Air" />
         <Transport icon={<LocalShippingIcon />} label="Road" />
         <Transport icon={<TrainIcon />} label="Rail" />
         <Transport icon={<HubIcon />} label="Intermodal / Multimodal" />
+        <a href="#" style={{ color: "#ff5722", textDecoration: "none" }}>
+          ClearAll
+        </a>
       </Stack>
     </Box>
   );
@@ -210,7 +214,12 @@ const Transport = ({ icon, label }) => (
         cursor: "pointer",
         "&:hover": {
           transform: "translateY(-5px)",
-          boxShadow: "0 6px 18px rgba(0,0,0,0.25)"
+          boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
+          backgroundColor: "#ff5722",
+          color: "#fff",
+          borderColor: "#fff",
+          
+          
         }
       }}
     >

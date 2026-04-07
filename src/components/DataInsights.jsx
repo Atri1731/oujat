@@ -1,3 +1,5 @@
+//Data insights
+
 import React from "react";
 import { Box, Grid, Typography, Paper } from "@mui/material";
 

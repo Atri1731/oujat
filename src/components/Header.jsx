@@ -146,7 +146,8 @@ const Header = () => {
                 }
               }}
             >
-              <MenuItem>
+              <MenuItem
+              onClick={ () => setOpenLogin(true)}>
                 <PersonOutlineIcon sx={{ mr: 2, color: "#ff5722" }} />
                 Register/Login
               </MenuItem>
@@ -164,10 +165,15 @@ const Header = () => {
   <StarBorderIcon sx={{ mr: 2, color: "#ff5722" }} />
   Subscription Packages
 </MenuItem>
-              <MenuItem>
-                <HelpOutlineIcon sx={{ mr: 2, color: "#ff5722" }} />
-                How It Works
-              </MenuItem>
+              <MenuItem
+  onClick={() => {
+    setAgentMenu(null);     // close dropdown
+    navigate("/agent-guide"); // go to page
+  }}
+>
+  <HelpOutlineIcon sx={{ mr: 2, color: "#ff5722" }} />
+  How It Works
+</MenuItem>
             </Menu>
 
             <Button
@@ -249,10 +255,20 @@ const Header = () => {
                 }
               }}
             >
-              <MenuItem>
+              {/* <MenuItem>
                 <HomeOutlinedIcon sx={{ mr: 1 }} />
                 Home
-              </MenuItem>
+              </MenuItem> */}
+
+                              <MenuItem
+  onClick={() => {
+    setAgentMenu(null);
+    navigate("/");
+  }}
+>
+  <HomeOutlinedIcon sx={{ mr: 2, color: "#ff5722" }} />
+  Home
+</MenuItem>
 
               <MenuItem onClick={() => setOpenCategories(!openCategories)}>
                 <Inventory2OutlinedIcon sx={{ mr: 1, color: "#ff5722" }} />
@@ -272,7 +288,17 @@ const Header = () => {
 >
   International Transport
 </MenuItem>
-                <MenuItem sx={{ pl: 5 }}>Domestic Transport</MenuItem>
+                {/* <MenuItem sx={{ pl: 5 }}>Domestic Transport</MenuItem> */}
+
+                                <MenuItem
+  sx={{ pl: 5 }}
+  onClick={() => {
+    navigate("/compare");  // ✅ route
+    setMenuDropdown(null);                // ✅ close menu
+  }}
+>
+  Domestic Transport
+</MenuItem>
                 <MenuItem sx={{ pl: 5 }}>Customs Services</MenuItem>
                 <MenuItem sx={{ pl: 5 }}>Warehouse Services</MenuItem>
                 <MenuItem sx={{ pl: 5 }}>Port Agency Services</MenuItem>
@@ -288,6 +314,17 @@ const Header = () => {
                 <SupportAgentOutlinedIcon sx={{ mr: 1 }} />
                 Help
               </MenuItem>
+
+              <MenuItem
+  onClick={() => {
+    setMenuDropdown(null);     // close menu
+    navigate("/agent-guide");  // open page
+  }}
+>
+  <HelpOutlineIcon sx={{ mr: 1, color: "#ff5722" }} />
+  How It Works
+</MenuItem>
+
             </Menu>
           </Box>
         </Toolbar>

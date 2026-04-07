@@ -17,37 +17,37 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import TrainIcon from "@mui/icons-material/Train";
 import HubIcon from "@mui/icons-material/Hub";
 
-
 const HeroSection = () => {
   const [countries, setCountries] = useState([]);
-useEffect(() => {
-  const fetchCountries = async () => {
-    try {
-      const res = await fetch("https://restcountries.com/v3.1/all?fields=name");
-      const data = await res.json();
 
-      const countryList = data
-        .map((c) => c.name.common)
-        .sort((a, b) => a.localeCompare(b));
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const res = await fetch("https://restcountries.com/v3.1/all?fields=name");
+        const data = await res.json();
 
-      setCountries(countryList); 
-    } catch (err) {
-      console.error("Error fetching countries:", err);
-    }
-  };
-// console.log(countries);
+        const countryList = data
+          .map((c) => c.name.common)
+          .sort((a, b) => a.localeCompare(b));
 
-  fetchCountries();
-}, []);
-  
+        setCountries(countryList);
+      } catch (err) {
+        console.error("Error fetching countries:", err);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
   return (
     <Box
       sx={{
+        width: "100vw",
         height: "100vh",
         backgroundImage: `
           linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
           url('/hero-bg.jpg')
-          `,
+        `,
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
@@ -56,10 +56,10 @@ useEffect(() => {
         flexDirection: "column",
         textAlign: "center",
         color: "#fff",
-        px: 2
+        px: 2,
+        py: { xs: 6, md: 0 }
       }}
     >
-    
       {/* Heading */}
       <Typography
         variant="h3"
@@ -69,84 +69,91 @@ useEffect(() => {
           fontSize: { xs: 28, md: 46 },
           fontFamily: "Plus Jakarta Sans, sans-serif"
         }}
-      > 
+      >
         All logistics services, everywhere
       </Typography>
 
       {/* Search Box */}
-    <Paper
-  elevation={4}
-  sx={{
-    display: "flex",
-    alignItems: "center",
-    borderRadius: 4,
-    p: { xs: 1.5, md: 2 },
-    gap: 2,
-    width: {
-      xs: "100%",
-      sm: "90%",
-      md: "750px"
-    }
-  }}
->
-      
+      <Paper
+        elevation={4}
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" }, // FIXED
+          alignItems: "center",
+          borderRadius: 4,
+          p: { xs: 1.5, md: 2 },
+          gap: 2,
+          width: {
+            xs: "100%",
+            sm: "90%",
+            md: "750px"
+          },
+          maxWidth: "750px" // FIXED
+        }}
+      >
         {/* FROM */}
-        <Box sx={{ flex: 1, textAlign: "left" }}>
+        <Box sx={{ flex: 1, textAlign: "left", width: "100%" }}>
           <Typography fontSize={14} fontWeight={600}>
             From
           </Typography>
 
-      <Autocomplete
-        options={countries || []}
-        renderInput={(params) => (
-      <TextField
-      {...params}
-      placeholder="Enter Origin Country"
-      variant="standard"
-      InputProps={{
-        ...params.InputProps,
-        disableUnderline: true
-      }}
-      sx={{
-        "& input": {
-          fontWeight: 600,
-          color: "#000"
-        }
-      }}
-    />
-  )}
-/>
+          <Autocomplete
+            options={countries || []}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Enter Origin Country"
+                variant="standard"
+                InputProps={{
+                  ...params.InputProps,
+                  disableUnderline: true
+                }}
+                sx={{
+                  "& input": {
+                    fontWeight: 600,
+                    color: "#000"
+                  }
+                }}
+              />
+            )}
+          />
         </Box>
 
         {/* ARROW */}
-        <ArrowForwardIcon sx={{ color: "#ff5722", fontSize: 30 }} />
+        <ArrowForwardIcon
+          sx={{
+            color: "#ff5722",
+            fontSize: 30,
+            display: { xs: "none", md: "block" } // FIXED
+          }}
+        />
 
         {/* TO */}
-        <Box sx={{ flex: 1, textAlign: "left" }}>
+        <Box sx={{ flex: 1, textAlign: "left", width: "100%" }}>
           <Typography fontSize={14} fontWeight={600}>
             To
           </Typography>
 
-         <Autocomplete
-          options={countries || []}
-          renderInput={(params) => (
-    <TextField
-      {...params}
-      placeholder="Enter Origin Country"
-      variant="standard"
-      InputProps={{
-        ...params.InputProps,
-        disableUnderline: true
-      }}
-      sx={{
-        "& input": {
-          fontWeight: 600,
-          color: "#000"
-        }
-      }}
-    />
-  )}
-/>
+          <Autocomplete
+            options={countries || []}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Enter Destination Country"
+                variant="standard"
+                InputProps={{
+                  ...params.InputProps,
+                  disableUnderline: true
+                }}
+                sx={{
+                  "& input": {
+                    fontWeight: 600,
+                    color: "#000"
+                  }
+                }}
+              />
+            )}
+          />
         </Box>
 
         {/* SEARCH BUTTON */}
@@ -154,7 +161,7 @@ useEffect(() => {
           sx={{
             bgcolor: "#000",
             color: "#fff",
-            width: 55,
+            width: { xs: "100%", md: 55 }, // FIXED
             height: 55,
             borderRadius: 3,
             "&:hover": { bgcolor: "#333" }
@@ -164,21 +171,24 @@ useEffect(() => {
         </IconButton>
       </Paper>
 
+      {/* TRANSPORT OPTIONS */}
       <Stack
         direction="row"
         spacing={1}
         mt={5}
         justifyContent="center"
-        flexWrap="nowrap"
+        flexWrap="wrap" // FIXED
+        rowGap={2} // FIXED
         sx={{
-        maxWidth: "600px"
-  }}
->
+          maxWidth: "600px"
+        }}
+      >
         <Transport icon={<SailingIcon />} label="Ocean / Waterways" />
         <Transport icon={<FlightIcon />} label="Air" />
         <Transport icon={<LocalShippingIcon />} label="Road" />
         <Transport icon={<TrainIcon />} label="Rail" />
         <Transport icon={<HubIcon />} label="Intermodal / Multimodal" />
+
         <a href="#" style={{ color: "#ff5722", textDecoration: "none" }}>
           ClearAll
         </a>
@@ -190,7 +200,7 @@ useEffect(() => {
 const Transport = ({ icon, label }) => (
   <Box
     sx={{
-      width: 150,
+      width: { xs: 110, sm: 130, md: 150 }, // FIXED
       textAlign: "center",
       display: "flex",
       flexDirection: "column",
@@ -217,9 +227,7 @@ const Transport = ({ icon, label }) => (
           boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
           backgroundColor: "#ff5722",
           color: "#fff",
-          borderColor: "#fff",
-          
-          
+          borderColor: "#fff"
         }
       }}
     >
@@ -230,7 +238,7 @@ const Transport = ({ icon, label }) => (
       sx={{
         color: "#fff",
         fontWeight: 600,
-        fontSize: 16,
+        fontSize: { xs: 12, md: 16 }, // FIXED
         lineHeight: 1.4
       }}
     >

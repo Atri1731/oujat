@@ -17,9 +17,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 
+import { useNavigate } from "react-router-dom";
+
 const CustomerLogin = () => {
 
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -116,15 +119,12 @@ const CustomerLogin = () => {
 
         {/* Forgot Password */}
         <Typography
-          textAlign="right"
-          sx={{
-            color: "#ff5722",
-            cursor: "pointer",
-            mb: 3
-          }}
-        >
-          Forgot Password?
-        </Typography>
+  textAlign="right"
+  sx={{ color: "#ff5722", cursor: "pointer" }}
+  onClick={() => navigate("/forgot-password")}
+>
+  Forgot Password?
+</Typography>
 
         {/* Login Button */}
         <Button
@@ -143,6 +143,17 @@ const CustomerLogin = () => {
         >
           Login
         </Button>
+
+        {/* Don't have an account */}
+        <Typography textAlign="center" sx={{ mb: 2 }}>
+          Don't have an account?{" "}
+          <span
+            style={{ color: "#ff5722", cursor: "pointer", fontWeight: 600 }}
+            onClick={() => navigate("/account-type")}
+          >
+            Sign up
+          </span>
+        </Typography>
 
         {/* Divider */}
         <Divider sx={{ mb: 1}}>Or</Divider>

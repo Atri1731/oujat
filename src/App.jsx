@@ -13,12 +13,17 @@ import FeaturedServices from "./components/FeaturedServices";
 import WhyOujat from "./components/WhyOujat";
 import Footer from "./components/Footer";
 
+
 import CustomerLogin from "./pages/CustomerLogin";
 import AgentLogin from "./pages/AgentLogin";
 import Subscription from "./pages/Subscription";
 import Dashboard from "./pages/Dashboard";
 import InternationalTransport from "./pages/InternationalTransport";
-
+import ComparePage from "./pages/ComparePage";
+import ForgotPassword from "./pages/ForgotPassword";
+import AccountType from "./pages/AccountType";
+import Register from "./pages/Register";
+import AgentGuide from "./pages/AgentGuide";
 
 
 function Layout() {
@@ -56,6 +61,15 @@ function Layout() {
         <Route path="/subscription" element={<Subscription />} /> 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/international-transport" element={<InternationalTransport />} />
+        <Route path="/compare" element={<ComparePage />} />
+        
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/account-type" element={<AccountType />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/agent-guide" element={<AgentGuide />} />
+
+
           
       </Routes>
     </>

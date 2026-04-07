@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Typography, Grid, Paper } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const services = [
   {
@@ -13,7 +14,7 @@ const services = [
   {
     title: "International Transportation",
     image: "world.png",
-    large: true
+    route: "/international-transport"
   },
   {
     title: "Customs Services",
@@ -37,58 +38,45 @@ const FeaturedServices = () => {
       <Typography
         textAlign="center"
         fontWeight={700}
-        color="#000"    
-        fontSize={35}
-        mb={4}
-        
+        fontSize={{ xs: 24, md: 32 }}
+        color="#000"
+        mb={5}
       >
         Featured Service Categories
       </Typography>
 
       {/* GRID */}
-      <Grid container spacing={3} justifyContent="center">
-
-        {/* TOP 2 CARDS */}
-        {services.slice(0, 2).map((item, i) => (
-          <Grid item xs={12} md={6} key={i}>
+      <Grid container spacing={3} justifyContent="center" alignItems="center">
+        {services.map((item, i) => (
+          <Grid item xs={12} sm={6} md={4} key={i}>
             <ServiceCard data={item} />
           </Grid>
         ))}
-
-        {/* BIG CARD */}
-        <Grid item xs={12} width={1000} >
-          <ServiceCard data={services[2]} large />
-        </Grid>
-
-        {/* BOTTOM 3 CARDS */}
-        {services.slice(3).map((item, i) => (
-          <Grid item xs={12} md={4} key={i} width={318}>
-            <ServiceCard data={item} />
-          </Grid>
-        ))}
-
       </Grid>
+
     </Box>
   );
 };
 
-export default FeaturedServices;
-
-
 /* ================= CARD ================= */
 
-const ServiceCard = ({ data, large }) => {
+const ServiceCard = ({ data }) => {
+  const navigate = useNavigate();
+
   return (
     <Paper
+      onClick={() => {
+        if (data.route) navigate(data.route);
+      }}
       sx={{
         p: 3,
         borderRadius: 3,
         border: "1px solid #e0e0e0",
-        height: large ? 220 : 160,
+        height: 180, // ✅ SAME HEIGHT FOR ALL
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        overflow: "hidden",
+        cursor: data.route ? "pointer" : "default",
         transition: "0.3s",
         "&:hover": {
           boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
@@ -96,14 +84,13 @@ const ServiceCard = ({ data, large }) => {
         }
       }}
     >
-
       {/* TEXT */}
       <Typography
         sx={{
           color: "#ff5722",
           fontWeight: 600,
-          fontSize: 18,
-          maxWidth: "40%"
+          fontSize: 16,
+          maxWidth: "50%"
         }}
       >
         {data.title}
@@ -115,11 +102,12 @@ const ServiceCard = ({ data, large }) => {
         src={data.image}
         alt={data.title}
         sx={{
-          height: large ? 180 : 120,
+          height: 100,
           objectFit: "contain"
         }}
       />
-
     </Paper>
   );
 };
+
+export default FeaturedServices;

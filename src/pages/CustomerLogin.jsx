@@ -1,3 +1,5 @@
+//CUSTOMER LOGIN
+
 import React, { useState } from "react";
 import {
   Box,
@@ -19,10 +21,43 @@ import AppleIcon from "@mui/icons-material/Apple";
 
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "../context/AuthContext";
+
 const CustomerLogin = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    email: "",
+    password: ""
+  });
+
+  const { login , isAuthenticated } = useAuth();  
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value
+    });
+  };
+
+  const handleLogin = async () => {
+    try {
+
+     const res = await login({
+        email: form.email,
+        password: form.password
+      });
+      if (res) {
+      navigate("/");
+    }
+
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <Box
@@ -49,17 +84,7 @@ const CustomerLogin = () => {
           <img src="logo2.png" alt="logo" style={{ height: 25 } } />
         </Box>
 
-        {/* Heading */}
-        {/* <Typography
-          variant="h4"
-          fontWeight={700}
-          textAlign="center"
-
-          justifyContent={center}
-          mb={1}
-        >
-          Welcome to Oujat.com
-        </Typography> */}
+       
 
          <Typography fontSize={32} fontWeight={700} mb={1} textAlign="center">
                   Welcome to{" "}
@@ -74,15 +99,16 @@ const CustomerLogin = () => {
           Enter the required information to log into your account
         </Typography>
 
-        {/* Email */}
         
-        {/* <Typography mb={1}>Email/User ID</Typography> */}
            {/* EMAIL */}
         <Typography fontWeight={600}>Email/User ID</Typography>
         
        <TextField
           fullWidth
           placeholder="Enter Email Address/User ID"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
           sx={{
             mb: 3,
             "& .MuiOutlinedInput-root": {
@@ -96,6 +122,9 @@ const CustomerLogin = () => {
 
         <TextField
           fullWidth
+          name="password"
+          value={form.password}
+          onChange={handleChange}
           type={showPassword ? "text" : "password"}
           placeholder="Enter Password"
           sx={{
@@ -140,6 +169,7 @@ const CustomerLogin = () => {
               backgroundColor: "#e64a19"
             }
           }}
+          onClick={handleLogin}
         >
           Login
         </Button>

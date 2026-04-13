@@ -10,7 +10,7 @@ const services = [
   { title: "Logistics 360", price: "$450/kg", image: "domestic6.png" }
 ];
 
-const DomesticCitywide = () => {
+const Brokerage = () => {
   return (
     <Box sx={{ bgcolor: "#f7f7f7", minHeight: "100vh", py: 6, mt: 1 }}>
 
@@ -23,7 +23,7 @@ const DomesticCitywide = () => {
   mt={11}
   sx={{ color: "#000" }} // ✅ ADD THIS
 >
-  Available Domestic Transport Services
+  Brokerage Services
 </Typography>
 
       {/* FIXED CENTER CONTAINER */}
@@ -36,7 +36,6 @@ const DomesticCitywide = () => {
   }}
 >
       
-
         <Grid
           container
           spacing={4}
@@ -101,4 +100,4 @@ const DomesticCitywide = () => {
   );
 };
 
-export default DomesticCitywide;
+export default Brokerage;

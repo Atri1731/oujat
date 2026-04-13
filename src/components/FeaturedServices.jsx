@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 const services = [
   {
     title: "Domestic Transportation",
-    image: "domestic.png"
+    image: "domestic.png",
+    route: "/compare"
   },
   {
     title: "Warehousing & Fulfilment",
-    image: "warehouse.png"
+    image: "warehouse.png",
+    route: "/warehouse-services"
   },
   {
     title: "International Transportation",
@@ -18,15 +20,18 @@ const services = [
   },
   {
     title: "Customs Services",
-    image: "customs.png"
+    image: "customs.png",
+    route: "/custom-services"
   },
   {
     title: "Brokerage Services",
-    image: "brokerage.png"
+    image: "brokerage.png",
+    route: "/brokerage"
   },
   {
     title: "Port Services",
-    image: "port.png"
+    image: "port.png",
+    route: "/port-agent"
   }
 ];
 

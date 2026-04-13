@@ -24,6 +24,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import AccountType from "./pages/AccountType";
 import Register from "./pages/Register";
 import AgentGuide from "./pages/AgentGuide";
+import WarehouseServices from "./pages/WarehouseServices";
+import CustomServices from "./pages/CustomService";
+import PortAgent from "./pages/PortAgent";
+import Brokerage from "./pages/Brokerage";
 
 
 function Layout() {
@@ -68,6 +72,10 @@ function Layout() {
         <Route path="/account-type" element={<AccountType />} />
         <Route path="/register" element={<Register />} />
         <Route path="/agent-guide" element={<AgentGuide />} />
+        <Route path="/warehouse-services" element={<WarehouseServices />} />
+        <Route path="/custom-services" element={<CustomServices />} />
+        <Route path="/port-agent" element={<PortAgent />} />
+        <Route path="/brokerage" element={<Brokerage />} />
 
 
           

@@ -299,10 +299,52 @@ const Header = () => {
 >
   Domestic Transport
 </MenuItem>
-                <MenuItem sx={{ pl: 5 }}>Customs Services</MenuItem>
-                <MenuItem sx={{ pl: 5 }}>Warehouse Services</MenuItem>
-                <MenuItem sx={{ pl: 5 }}>Port Agency Services</MenuItem>
-                <MenuItem sx={{ pl: 5 }}>Brokerage Services</MenuItem>
+                {/* <MenuItem sx={{ pl: 5 }}>Customs Services</MenuItem> */}
+
+
+      <MenuItem
+  sx={{ pl: 5 }}
+  onClick={() => {
+    navigate("/custom-services");  // ✅ route
+    setMenuDropdown(null);                // ✅ close menu
+  }}
+>
+  Custom Services
+</MenuItem>
+                {/* <MenuItem sx={{ pl: 5 }}>Warehouse Services</MenuItem> */}
+  <MenuItem
+  sx={{ pl: 5 }}
+  onClick={() => {
+    navigate("/warehouse-services");  // ✅ route
+    setMenuDropdown(null);                // ✅ close menu
+  }}
+>
+  Warehouse Services
+</MenuItem>
+                {/* <MenuItem sx={{ pl: 5 }}>Port Agency Services</MenuItem> */}
+
+                  <MenuItem
+  sx={{ pl: 5 }}
+  onClick={() => {
+    navigate("/port-agent");  // ✅ route
+    setMenuDropdown(null);                // ✅ close menu
+  }}
+>
+  Port Agency Services
+</MenuItem>
+                {/* <MenuItem sx={{ pl: 5 }}>Brokerage Services</MenuItem> */}
+
+    <MenuItem
+  sx={{ pl: 5 }}
+  onClick={() => {
+    navigate("/brokerage");  // ✅ route
+    setMenuDropdown(null);                // ✅ close menu
+  }}
+>
+  Brokerage Services
+</MenuItem>
+
+
               </Collapse>
 
               <MenuItem>

@@ -117,7 +117,7 @@ const WhyOujat = () => {
 
       <Grid container spacing={3} mb={10} marginLeft={10}>
         {features.map((item, i) => (
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
             <FeatureCard data={item} index={i + 1} />
           </Grid>
         ))}

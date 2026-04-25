@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -6,7 +6,7 @@ import {
   TextField,
   IconButton,
   Stack,
-  Autocomplete
+  Autocomplete,
 } from "@mui/material";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -17,13 +17,29 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import TrainIcon from "@mui/icons-material/Train";
 import HubIcon from "@mui/icons-material/Hub";
 
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { TransportContext } from "../context/TransportContext";
+
 const HeroSection = () => {
   const [countries, setCountries] = useState([]);
+  const [source, setSource] = useState("");
+  const [destination, setDestination] = useState("");
+  const [newSource, setNewSource] = useState("");
+
+  const [newDestination, setNewDestination] = useState("");
+  const [type, setType] = useState("");
+  const [price, setPrice] = useState("");
+  const [duration, setDuration] = useState("");
+  const navigate = useNavigate();
+  const { setResults, searchTransport } = useContext(TransportContext);
 
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const res = await fetch("https://restcountries.com/v3.1/all?fields=name");
+        const res = await fetch(
+          "https://restcountries.com/v3.1/all?fields=name",
+        );
         const data = await res.json();
 
         const countryList = data
@@ -38,6 +54,42 @@ const HeroSection = () => {
 
     fetchCountries();
   }, []);
+
+  // const handleSearch = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `http://localhost:4000/api/transport/search?origin=${source}&destination=${destination}`,
+  //     );
+
+  //     // setResults(res.data.data);
+  //     const data = res.data.data;
+  //     if (data && data.length > 0) {
+  //       setResults(data);
+  //       navigate("/transport-page");
+  //     } else {
+  //       alert("No transport found");
+  //     }
+  //     // navigate("/transport-page");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const handleSearch = async () => {
+    try {
+      const data = await searchTransport(source, destination);
+
+      console.log("Returned Data:", data);
+
+      if (!data || data.length === 0) {
+        alert("No data found");
+        return;
+      }
+      navigate("/transport-page");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Box
@@ -57,7 +109,7 @@ const HeroSection = () => {
         textAlign: "center",
         color: "#fff",
         px: 2,
-        py: { xs: 6, md: 0 }
+        py: { xs: 6, md: 0 },
       }}
     >
       {/* Heading */}
@@ -67,7 +119,7 @@ const HeroSection = () => {
         sx={{
           mb: 3,
           fontSize: { xs: 28, md: 46 },
-          fontFamily: "Plus Jakarta Sans, sans-serif"
+          fontFamily: "Plus Jakarta Sans, sans-serif",
         }}
       >
         All logistics services, everywhere
@@ -86,9 +138,9 @@ const HeroSection = () => {
           width: {
             xs: "100%",
             sm: "90%",
-            md: "750px"
+            md: "750px",
           },
-          maxWidth: "750px" // FIXED
+          maxWidth: "750px", // FIXED
         }}
       >
         {/* FROM */}
@@ -99,6 +151,7 @@ const HeroSection = () => {
 
           <Autocomplete
             options={countries || []}
+            onChange={(e, value) => setSource(value)} // 🔥 IMPORTANT
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -106,13 +159,7 @@ const HeroSection = () => {
                 variant="standard"
                 InputProps={{
                   ...params.InputProps,
-                  disableUnderline: true
-                }}
-                sx={{
-                  "& input": {
-                    fontWeight: 600,
-                    color: "#000"
-                  }
+                  disableUnderline: true,
                 }}
               />
             )}
@@ -124,7 +171,7 @@ const HeroSection = () => {
           sx={{
             color: "#ff5722",
             fontSize: 30,
-            display: { xs: "none", md: "block" } // FIXED
+            display: { xs: "none", md: "block" }, // FIXED
           }}
         />
 
@@ -136,6 +183,7 @@ const HeroSection = () => {
 
           <Autocomplete
             options={countries || []}
+            onChange={(e, value) => setDestination(value)} // 🔥 IMPORTANT
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -143,13 +191,7 @@ const HeroSection = () => {
                 variant="standard"
                 InputProps={{
                   ...params.InputProps,
-                  disableUnderline: true
-                }}
-                sx={{
-                  "& input": {
-                    fontWeight: 600,
-                    color: "#000"
-                  }
+                  disableUnderline: true,
                 }}
               />
             )}
@@ -158,13 +200,14 @@ const HeroSection = () => {
 
         {/* SEARCH BUTTON */}
         <IconButton
+          onClick={handleSearch}
           sx={{
             bgcolor: "#000",
             color: "#fff",
-            width: { xs: "100%", md: 55 }, // FIXED
+            width: { xs: "100%", md: 55 },
             height: 55,
             borderRadius: 3,
-            "&:hover": { bgcolor: "#333" }
+            "&:hover": { bgcolor: "#333" },
           }}
         >
           <SearchIcon />
@@ -180,7 +223,7 @@ const HeroSection = () => {
         flexWrap="wrap" // FIXED
         rowGap={2} // FIXED
         sx={{
-          maxWidth: "600px"
+          maxWidth: "600px",
         }}
       >
         <Transport icon={<SailingIcon />} label="Ocean / Waterways" />
@@ -193,7 +236,7 @@ const HeroSection = () => {
           ClearAll
         </a>
       </Stack>
-    </Box>
+    </Box> //HERO SECTION
   );
 };
 
@@ -204,7 +247,7 @@ const Transport = ({ icon, label }) => (
       textAlign: "center",
       display: "flex",
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
     }}
   >
     <Box
@@ -227,8 +270,8 @@ const Transport = ({ icon, label }) => (
           boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
           backgroundColor: "#ff5722",
           color: "#fff",
-          borderColor: "#fff"
-        }
+          borderColor: "#fff",
+        },
       }}
     >
       {icon}
@@ -239,7 +282,7 @@ const Transport = ({ icon, label }) => (
         color: "#fff",
         fontWeight: 600,
         fontSize: { xs: 12, md: 16 }, // FIXED
-        lineHeight: 1.4
+        lineHeight: 1.4,
       }}
     >
       {label}

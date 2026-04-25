@@ -28,7 +28,7 @@ import WarehouseServices from "./pages/WarehouseServices";
 import CustomServices from "./pages/CustomService";
 import PortAgent from "./pages/PortAgent";
 import Brokerage from "./pages/Brokerage";
-
+import TransportPage from "./pages/TransportPage";
 
 function Layout() {
   const location = useLocation();
@@ -36,7 +36,9 @@ function Layout() {
   // hide header on login pages
   const hideHeader =
     location.pathname === "/customer-login" ||
-    location.pathname === "/agent-login";
+    location.pathname === "/agent-login" ||
+    location.pathname === "/register";
+
 
   return (
     <>
@@ -76,6 +78,7 @@ function Layout() {
         <Route path="/custom-services" element={<CustomServices />} />
         <Route path="/port-agent" element={<PortAgent />} />
         <Route path="/brokerage" element={<Brokerage />} />
+        <Route path="/transport-page" element={<TransportPage />}/>
 
 
           

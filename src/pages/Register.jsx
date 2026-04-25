@@ -228,23 +228,34 @@ setTimeout(() => {
           bgcolor: "#f5f5f5",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-start",
+          pt:10,
           p: 2
         }}
       >
-        <Paper sx={{ width: 600, p: 4, borderRadius: 3 }}>
+        <Paper elevation={0} sx={{ width: 600, p: 4, borderRadius: 4,boxShadow: "0 60px 400px rgba(0,0,0,0.08)",
+    border: "1px solid #ff4000" }}>
 
           {/* LOGO */}
-          <Typography fontSize={26} fontWeight={700}>
+          {/* <Typography fontSize={26} fontWeight={700} mt={8}>
             OUJ<span style={{ color: "#ff5722" }}>A</span>T
-          </Typography>
+          </Typography> */}
 
-          <Typography fontSize={20} fontWeight={600} mt={1}>
-            Create Account
+          <Box display="flex" alignItems="center" justifyContent="center" gap={1}>
+  <img
+    src="/logo2.png"   // 👈 your file name
+    alt="Oujat Logo"
+    style={{ height: 40 }}
+    
+  />
+</Box>
+
+          <Typography fontSize={20} fontWeight={600} mt={1} >
+            Create an Account
           </Typography>
 
           {/* 🔥 ACCOUNT TYPE */}
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+          <Box sx={{ display: "flex", gap: 2, mt: 2,width:600}}>
             <Button
               fullWidth
               variant={form.accountType === "individual" ? "contained" : "outlined"}
@@ -272,57 +283,59 @@ setTimeout(() => {
             </Button>
           </Box>
 
-          <Grid container spacing={2} mt={1}>
+          <Grid container spacing={2.5} mt={1} >
 
-            <Grid item xs={6}>
+            <Grid item xs={12} width={290}>
               <TextField fullWidth label="First Name" name="firstName"
                 value={form.firstName} onChange={handleChange}
-                error={!!errors.firstName} helperText={errors.firstName} />
+                error={!!errors.firstName} helperText={errors.firstName} 
+                  
+                />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12} width={290}>
               <TextField fullWidth label="Last Name" name="lastName"
                 value={form.lastName} onChange={handleChange}
                 error={!!errors.lastName} helperText={errors.lastName} />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} width={290}>
               <TextField fullWidth label="Email" name="email"
                 value={form.email} onChange={handleChange}
                 error={!!errors.email} helperText={errors.email} />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} width={290}>
               <TextField fullWidth label="Phone" name="phone"
                 value={form.phone} onChange={handleChange}
                 error={!!errors.phone} helperText={errors.phone} />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} width={290}>
               <TextField fullWidth label="Address" name="address"
                 value={form.address} onChange={handleChange}
                 error={!!errors.address} helperText={errors.address} />
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item xs={4} width={290}>
               <TextField fullWidth label="Country" name="country"
                 value={form.country} onChange={handleChange}
                 error={!!errors.country} helperText={errors.country} />
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item xs={4} width={290}>
               <TextField fullWidth label="State" name="state"
                 value={form.state} onChange={handleChange}
                 error={!!errors.state} helperText={errors.state} />
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item xs={4} width={290}>
               <TextField fullWidth label="City" name="city"
                 value={form.city} onChange={handleChange}
                 error={!!errors.city} helperText={errors.city} />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} width={290}>
               <TextField
                 fullWidth label="Password"
                 name="password"
@@ -343,10 +356,10 @@ setTimeout(() => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} width={290}>
   <TextField
     fullWidth
-    size="small"
+    // size="small"
     label="Confirm Password"
     name="confirmPassword"
     type={showConfirm ? "text" : "password"}

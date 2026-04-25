@@ -8,6 +8,7 @@ import {
   Stack,
   Autocomplete,
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SearchIcon from "@mui/icons-material/Search";
@@ -33,6 +34,7 @@ const HeroSection = () => {
   const [duration, setDuration] = useState("");
   const navigate = useNavigate();
   const { setResults, searchTransport } = useContext(TransportContext);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -55,39 +57,28 @@ const HeroSection = () => {
     fetchCountries();
   }, []);
 
-  // const handleSearch = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `http://localhost:4000/api/transport/search?origin=${source}&destination=${destination}`,
-  //     );
-
-  //     // setResults(res.data.data);
-  //     const data = res.data.data;
-  //     if (data && data.length > 0) {
-  //       setResults(data);
-  //       navigate("/transport-page");
-  //     } else {
-  //       alert("No transport found");
-  //     }
-  //     // navigate("/transport-page");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   const handleSearch = async () => {
     try {
+      if (!source || !destination) {
+        alert("Please select source and destination");
+        return;
+      }
+      setLoading(true);
       const data = await searchTransport(source, destination);
 
       console.log("Returned Data:", data);
 
       if (!data || data.length === 0) {
         alert("No data found");
+        setLoading(false);
+
         return;
       }
+      setLoading(false);
       navigate("/transport-page");
     } catch (err) {
       console.error(err);
+      setLoading(false);
     }
   };
 
@@ -199,7 +190,7 @@ const HeroSection = () => {
         </Box>
 
         {/* SEARCH BUTTON */}
-        <IconButton
+        {/* <IconButton
           onClick={handleSearch}
           sx={{
             bgcolor: "#000",
@@ -211,6 +202,24 @@ const HeroSection = () => {
           }}
         >
           <SearchIcon />
+        </IconButton> */}
+        <IconButton
+          onClick={handleSearch}
+          disabled={loading}
+          sx={{
+            bgcolor: "#000",
+            color: "#fff",
+            width: { xs: "100%", md: 55 },
+            height: 55,
+            borderRadius: 3,
+            "&:hover": { bgcolor: "#333" },
+          }}
+        >
+          {loading ? (
+            <CircularProgress size={24} sx={{ color: "#fff" }} />
+          ) : (
+            <SearchIcon />
+          )}
         </IconButton>
       </Paper>
 
